@@ -18,7 +18,24 @@ devcontainer up --workspace-folder . --config .devcontainer/devcontainer.json --
 devcontainer exec --workspace-folder . --config .devcontainer/devcontainer.json bash
 ```
 
-# Build and flash using v5.2 builder container
+## Build
+
+```
+cd src
+idf.py set-target esp32s3
+idf.py build
+```
+
+## for LSP
+
+```
+cd src
+rm -rf build
+idf.py reconfigure
+cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+```
+
+## Build and flash using v5.2 builder container
 
 ```
 DEV=/dev/ttyACM0;docker run --rm -it -v ${PWD}:/mnt/work -w /mnt/work --device=${DEV} --group-add $(stat -c '%g' ${DEV}) ghcr.io/wurly200a/builder-esp32/esp-idf-v5.3:latest
@@ -29,19 +46,8 @@ docker run --rm -it -v ${PWD}:/mnt/work -w /mnt/work ghcr.io/wurly200a/builder-e
 ```
 
 ```
-source /opt/esp-idf/export.sh
 idf.py set-target esp32s3
 idf.py reconfigure -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 idf.py build
 idf.py -p /dev/ttyACM0 flash monitor
-```
-
-# for LSP
-
-```
-cd /mnt/work/src
-rm -rf build
-idf.py reconfigure
-cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-test -f build/compile_commands.json && head -c1 build/compile_commands.json
 ```
