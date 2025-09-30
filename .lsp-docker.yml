@@ -1,0 +1,9 @@
+lsp:
+  server:
+    type: docker
+    subtype: image
+    name: ghcr.io/wurly200a/builder-esp32/esp-idf-v5.3:latest
+    server: clangd
+    launch_command: >
+      bash -lc "source /opt/esp-idf/export.sh && clangd --background-index --header-insertion-decorators=0
+  --compile-commands-dir=/workspaces/ESP32-S3-Touch-LCD-2_8/src/build"

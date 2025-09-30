@@ -1,0 +1,5 @@
+{
+  "name": "ESP32 (ESP-IDF v5.3)",
+  "image": "ghcr.io/wurly200a/builder-esp32/esp-idf-v5.3:latest",
+  "remoteUser": "ubuntu"
+}
